@@ -1,8 +1,10 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
+﻿/*
+ * Author: Mighty Mark 7/27/2021
+ * With his trusty side-kick encyclopedia Chase...
+ */
 
+using System;
+using System.Threading;
 
 namespace GameOfLiveV2 {
     class Program {
@@ -14,6 +16,7 @@ namespace GameOfLiveV2 {
         static int cycleTime = 5000;
         static int cycle;
 
+        static readonly Random rnd = new();
 
         static void Main(string[] args) {
             // TODO Should convert the setup stuff to a separate method
@@ -52,7 +55,7 @@ namespace GameOfLiveV2 {
             // randomly initialize our grid
             for (int row = 0; row < Rows; row++) {
                 for (int column = 0; column < Columns; column++) {
-                    grid[row, column] = (Status)RandomNumberGenerator.GetInt32(0, 2);
+                    grid[row, column] = (Status)rnd.Next(0, 2);
                 }
             }
 
@@ -164,6 +167,6 @@ namespace GameOfLiveV2 {
 
     public enum Status {
         Dead,
-        Alive,
+        Alive
     }
 }

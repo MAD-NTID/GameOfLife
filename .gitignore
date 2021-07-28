@@ -1,0 +1,5 @@
+#Directories to ignore - bin & obj are generated when we build
+
+.vs/
+bin/
+obj/

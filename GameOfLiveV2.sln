@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLiveV2", "GameOfLiveV2\GameOfLiveV2.csproj", "{B8FFFEA3-51C3-431A-862B-014655AAEF12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLiveV2", "GameOfLiveV2\GameOfLiveV2.csproj", "{B8FFFEA3-51C3-431A-862B-014655AAEF12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLifeDesktop", "src\GameOfLifeDesktop\GameOfLifeDesktop.csproj", "{F894B0C4-D262-4CE9-A2CA-A262CE7B4AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife", "src\GameOfLife\GameOfLife.csproj", "{997D07BB-8A15-4870-9DBA-90970EE60A10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLifeConsole", "src\GameOfLifeConsole\GameOfLifeConsole.csproj", "{E4009E6A-5795-41A0-AF8E-D0948308318A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{B8FFFEA3-51C3-431A-862B-014655AAEF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8FFFEA3-51C3-431A-862B-014655AAEF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FFFEA3-51C3-431A-862B-014655AAEF12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F894B0C4-D262-4CE9-A2CA-A262CE7B4AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F894B0C4-D262-4CE9-A2CA-A262CE7B4AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F894B0C4-D262-4CE9-A2CA-A262CE7B4AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F894B0C4-D262-4CE9-A2CA-A262CE7B4AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{997D07BB-8A15-4870-9DBA-90970EE60A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997D07BB-8A15-4870-9DBA-90970EE60A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997D07BB-8A15-4870-9DBA-90970EE60A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997D07BB-8A15-4870-9DBA-90970EE60A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4009E6A-5795-41A0-AF8E-D0948308318A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4009E6A-5795-41A0-AF8E-D0948308318A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4009E6A-5795-41A0-AF8E-D0948308318A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4009E6A-5795-41A0-AF8E-D0948308318A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

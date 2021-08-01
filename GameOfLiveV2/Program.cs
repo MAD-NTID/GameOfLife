@@ -78,16 +78,20 @@ namespace GameOfLiveV2 {
             }
         }
 
-        private static Status[,] NextGeneration(Status[,] currentGrid) {
+        private static Status[,] NextGeneration(Status[,] currentGrid)
+        {
             var nextGeneration = new Status[Rows, Columns];
 
             // Loop through every cell 
             for (int row = 1; row < Rows - 1; row++)
-                for (int column = 1; column < Columns - 1; column++) {
+                for (int column = 1; column < Columns - 1; column++)
+                {
                     // find your alive neighbors
                     int aliveNeighbors = 0;
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
+                    for (int i = -1; i <= 1; i++)
+                    {
+                        for (int j = -1; j <= 1; j++)
+                        {
                             aliveNeighbors += currentGrid[row + i, column + j] == Status.Alive ? 1 : 0;
                         }
                     }
@@ -102,53 +106,44 @@ namespace GameOfLiveV2 {
                     // Implementing the Rules of Life 
 
                     // Cell is lonely and dies 
-                    if (currentCell.HasFlag(Status.Alive) && aliveNeighbors < 2) {
+                    if (currentCell.HasFlag(Status.Alive) && aliveNeighbors < 2)
+                    {
                         nextGeneration[row, column] = Status.Dead;
                     }
 
                     // Cell dies due to over population 
-                    else if (currentCell.HasFlag(Status.Alive) && aliveNeighbors > 3) {
+                    else if (currentCell.HasFlag(Status.Alive) && aliveNeighbors > 3)
+                    {
                         nextGeneration[row, column] = Status.Dead;
                     }
 
                     // A new cell is born 
-                    else if (currentCell.HasFlag(Status.Dead) && aliveNeighbors == 3) {
+                    else if (currentCell.HasFlag(Status.Dead) && aliveNeighbors == 3)
+                    {
                         nextGeneration[row, column] = Status.Alive;
                     }
                     // stays the same
-                    else {
+                    else
+                    {
                         nextGeneration[row, column] = currentCell;
                     }
                 }
             return nextGeneration;
         }
+
         // TODO clean up the unused timeout variable -- replaced with cycletime
-        private static void Print(Status[,] future, int timeout = 5000) {
-            /* //StringBuilder stringBuilder = new StringBuilder();
-            string
-            for (var row = 0; row < Rows; row++) {
-                for (var column = 0; column < Columns; column++) {
-                    Status cell = future[row, column];
-                    Console.ForegroundColor = (cell == Status.Alive ? ConsoleColor.Green : ConsoleColor.Yellow);
-                    //stringBuilder.Append(cell == Status.Alive ? "*" : ".");
-                    //stringBuilder.Append(cell == Status.Alive ? "🧑‍🚀" : "👽");
-                }
-                stringBuilder.Append("\n");
-            }
-
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
-            Console.Write(stringBuilder.ToString()); */
-
+        private static void Print(Status[,] future, int timeout = 5000)
+        {
             int stillBreathing = 0;
 
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(0, 0);
 
-            for (int row = 0; row < Rows; row++ ) {
-                for (int column = 0; column < Columns; column++ ) {
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int column = 0; column < Columns; column++)
+                {
                     Status cell = future[row, column];
                     Console.ForegroundColor = (cell == Status.Alive ? ConsoleColor.Green : ConsoleColor.DarkRed);
                     Console.Write(cell == Status.Alive ? "*" : ".");
@@ -165,7 +160,8 @@ namespace GameOfLiveV2 {
         }
     }
 
-    public enum Status {
+    public enum Status
+    {
         Dead,
         Alive
     }

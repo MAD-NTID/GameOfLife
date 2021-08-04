@@ -24,7 +24,7 @@ namespace GameOfLife
             set => timer.Interval = value;
         }
         public int Cycle { get; private set; }
-        public int CurrentlyAlive { get; private set; }
+        public int AliveCounter { get; private set; }
         #endregion Properties
 
         #region Fields
@@ -40,16 +40,13 @@ namespace GameOfLife
             
             timer.Elapsed += Timer_Elapsed;
 
+            Cycle = 0;
             currentCycle = new Status[Rows, Columns];
 
             // randomly initialize our grid
-            for (int row = 0; row < Rows; row++)
-            {
-                for (int column = 0; column < Columns; column++)
-                {
-                    currentCycle[row, column] = (Status)rnd.Next(0, 2);
-                }
-            }
+            for (int row = 0; row < Rows; row++)            
+                for (int column = 0; column < Columns; column++)               
+                    currentCycle[row, column] = (Status)rnd.Next(0, 2);                        
 
             IsRunning = true;
             NextCycle?.Invoke(this, new GameUpdateEventArgs(currentCycle));            
@@ -65,7 +62,7 @@ namespace GameOfLife
         {
             Cycle++;
             var nextCycle = new Status[Rows, Columns];
-            CurrentlyAlive = 0;
+            AliveCounter = 0;
 
             // Loop through every cell 
             for (int row = 1; row < Rows - 1; row++)
@@ -73,17 +70,11 @@ namespace GameOfLife
                 {
                     // find your alive neighbors
                     int aliveNeighbors = 0;
-                    for (int i = -1; i <= 1; i++)
-                    {
-                        for (int j = -1; j <= 1; j++)
-                        {
-                            aliveNeighbors += currentCycle[row + i, column + j] == Status.Alive ? 1 : 0;
-                        }
-                    }
+                    for (int i = -1; i <= 1; i++)                    
+                        for (int j = -1; j <= 1; j++)                        
+                            aliveNeighbors += currentCycle[row + i, column + j] == Status.Alive ? 1 : 0;                    
 
-                    var currentCell = currentCycle[row, column];
-
-                    if (currentCell == Status.Alive) CurrentlyAlive++;
+                    var currentCell = currentCycle[row, column];                    
 
                     // The cell needs to be subtracted 
                     // from its neighbours as it was  
@@ -107,6 +98,9 @@ namespace GameOfLife
                             nextCycle[row, column] = currentCell;
                             break;
                     }
+
+                    if (nextCycle[row, column] == Status.Alive) 
+                        AliveCounter++;
                 }
             currentCycle = nextCycle;
             NextCycle?.Invoke(this, new GameUpdateEventArgs(nextCycle));

@@ -76,7 +76,7 @@ namespace GameOfLifeConsole
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nResult of cycle:       {game.Cycle}");
-            Console.WriteLine($"\nNumber of cells alive: {game.CurrentlyAlive}");
+            Console.WriteLine($"\nNumber of cells alive: {game.AliveCounter}");
         }
     }
 }

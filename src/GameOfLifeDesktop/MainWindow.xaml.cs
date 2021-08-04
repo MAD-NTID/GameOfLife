@@ -41,17 +41,13 @@ namespace GameOfLifeDesktop
                         for (int columns = 0; columns < Game.Columns; columns++)
                         {
                             //cycleGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                            Label l = new Label
-                            {
-                                Content = $"?"
-                            };
+                            Image cell = new Image();
 
                             // Set row/column for each label here
-                            l.SetValue(Grid.RowProperty, rows);
-                            l.SetValue(Grid.ColumnProperty, columns);
+                            cell.SetValue(Grid.RowProperty, rows);
+                            cell.SetValue(Grid.ColumnProperty, columns);
                             // Add label to grid                            
-                            int index = cycleGrid.Children.Add(l);
-                            l.Content = index;
+                            cycleGrid.Children.Add(cell);
                         }
                     }
                 }
@@ -79,7 +75,7 @@ namespace GameOfLifeDesktop
             Dispatcher.Invoke(() =>
             {
                 cycleLabel.Content = Game.Cycle;
-                aliveLabel.Content = Game.CurrentlyAlive;
+                aliveLabel.Content = Game.AliveCounter;
             });            
         }
 

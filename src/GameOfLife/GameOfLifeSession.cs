@@ -41,12 +41,17 @@ namespace GameOfLife
             timer.Elapsed += Timer_Elapsed;
 
             Cycle = 0;
+            AliveCounter = 0;
             currentCycle = new Status[Rows, Columns];
 
             // randomly initialize our grid
             for (int row = 0; row < Rows; row++)            
-                for (int column = 0; column < Columns; column++)               
-                    currentCycle[row, column] = (Status)rnd.Next(0, 2);                        
+                for (int column = 0; column < Columns; column++)
+                {
+                    currentCycle[row, column] = (Status)rnd.Next(0, 2);
+                    if (currentCycle[row, column] == Status.Alive)
+                        AliveCounter++;
+                }                       
 
             IsRunning = true;
             NextCycle?.Invoke(this, new GameUpdateEventArgs(currentCycle));            

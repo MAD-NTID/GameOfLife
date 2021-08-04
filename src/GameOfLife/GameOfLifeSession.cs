@@ -3,27 +3,56 @@ using System.Timers;
 
 namespace GameOfLife
 {
+    /// <summary>
+    /// A <see cref="GameOfLifeSession"/> is a class that contains all the backing functionality / states needed support a game regardless of how it is presented.
+    /// </summary>
     public class GameOfLifeSession
     {
+        /// <summary>
+        /// Default internval for cycles in milliseconds.
+        /// </summary>
         public const int DEFAULT_CYCLE_TIME = 2000;
 
-        public event EventHandler<GameUpdateEventArgs> NextCycle;
+        /// <summary>
+        /// Notifies subscribers that the next cycle is ready.
+        /// </summary>
+        public event EventHandler<NextCycleEventArgs> NextCycle;
 
         #region Properties
+        /// <summary>
+        /// Rows of the GameOfLife's grid.
+        /// </summary>
         public int Rows { get; set; }
+        /// <summary>
+        /// Columns of the GameOfLife's grid.
+        /// </summary>
         public int Columns { get; set; }
+
+        /// <summary>
+        /// Gets the running status of the game.
+        /// </summary>
         public bool IsRunning
         {
             get => timer.Enabled;
             private set => timer.Enabled = value;
         }
 
+        /// <summary>
+        /// Gets or sets the amount of time between cycles.
+        /// </summary>
         public double CycleTime
         {
             get => timer.Interval;
             set => timer.Interval = value;
         }
-        public int Cycle { get; private set; }
+
+        /// <summary>
+        /// Counter the total number of cycles, whereas the last cycle is the current.
+        /// </summary>
+        public int CycleCounter { get; private set; }
+        /// <summary>
+        /// Counts the number of alive cells in the current cycle.
+        /// </summary>
         public int AliveCounter { get; private set; }
         #endregion Properties
 
@@ -33,6 +62,9 @@ namespace GameOfLife
         private readonly Timer timer = new Timer(DEFAULT_CYCLE_TIME);
         #endregion
 
+        /// <summary>
+        /// Start the game by setting everything up and then starting the timer.
+        /// </summary>
         public void Start()
         {
             if (IsRunning)
@@ -40,7 +72,7 @@ namespace GameOfLife
             
             timer.Elapsed += Timer_Elapsed;
 
-            Cycle = 0;
+            CycleCounter = 0;
             AliveCounter = 0;
             currentCycle = new Status[Rows, Columns];
 
@@ -54,18 +86,33 @@ namespace GameOfLife
                 }                       
 
             IsRunning = true;
-            NextCycle?.Invoke(this, new GameUpdateEventArgs(currentCycle));            
+            NextCycle?.Invoke(this, new NextCycleEventArgs(currentCycle));            
         }        
 
+        /// <summary>
+        /// Stop the game via the underlying timer.
+        /// </summary>
         public void Stop()
-            => IsRunning = false;        
+            => IsRunning = false;
 
+        /// <summary>
+        /// Restart the game via the underlying timer.
+        /// </summary>
+        public void Resume()
+            => IsRunning = true;
+
+        /// <summary>
+        /// Occurs when the timer elapses based off the interval.
+        /// </summary>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
             => OnNextCycle();        
 
+        /// <summary>
+        /// Prepares everything needed for the next cycle and then invokes <see cref="NextCycle"/>.
+        /// </summary>
         protected virtual void OnNextCycle()
         {
-            Cycle++;
+            CycleCounter++;
             var nextCycle = new Status[Rows, Columns];
             AliveCounter = 0;
 
@@ -108,21 +155,27 @@ namespace GameOfLife
                         AliveCounter++;
                 }
             currentCycle = nextCycle;
-            NextCycle?.Invoke(this, new GameUpdateEventArgs(nextCycle));
+            NextCycle?.Invoke(this, new NextCycleEventArgs(nextCycle));
         }
     }
 
+    /// <summary>
+    /// Status of a cell.
+    /// </summary>
     public enum Status
     {
         Dead,
         Alive
     }
 
-    public class GameUpdateEventArgs : EventArgs
+    /// <summary>
+    /// Contains information about the next cycle.
+    /// </summary>
+    public class NextCycleEventArgs : EventArgs
     {
         public Status[,] NextCycle { get; set; }
 
-        public GameUpdateEventArgs(Status[,] grid)
+        public NextCycleEventArgs(Status[,] grid)
             => NextCycle = grid;
     }
 }

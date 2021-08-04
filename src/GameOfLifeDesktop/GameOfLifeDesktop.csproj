@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\dog.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\dog.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GameOfLife\GameOfLife.csproj" />
   </ItemGroup>
 

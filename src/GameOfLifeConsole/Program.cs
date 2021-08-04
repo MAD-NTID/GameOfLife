@@ -58,7 +58,7 @@ namespace GameOfLifeConsole
             Thread.Sleep(Timeout.Infinite);
         }
 
-        private static void Game_Update(object sender, GameUpdateEventArgs e)
+        private static void Game_Update(object sender, NextCycleEventArgs e)
         {
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Black;
@@ -75,7 +75,7 @@ namespace GameOfLifeConsole
                 Console.Write("\n");
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nResult of cycle:       {game.Cycle}");
+            Console.WriteLine($"\nResult of cycle:       {game.CycleCounter}");
             Console.WriteLine($"\nNumber of cells alive: {game.AliveCounter}");
         }
     }

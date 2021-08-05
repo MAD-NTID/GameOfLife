@@ -24,9 +24,14 @@ namespace GameOfLifeMobile
         public MainPage()
         {
             InitializeComponent();
-            mainGrid.WidthRequest = Width;
-            mainGrid.HeightRequest = Width;
             AliveImg = ImageSource.FromFile(Device.RuntimePlatform == Device.Android ? "dog.jpg" : "Images/dog.jpg");
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            mainGrid.WidthRequest = width;
+            mainGrid.HeightRequest = width;
+            base.OnSizeAllocated(width, height);
         }
 
         private void OnStartBtn_Clicked(object sender, EventArgs e)
@@ -46,24 +51,18 @@ namespace GameOfLifeMobile
             for (int rows = 0; rows < Game.Rows; rows++)
                 cycleGrid.RowDefinitions.Add(new RowDefinition());
 
-            // Populate and/or inflate user interface (UI)
-            {
-                for (int rows = 0; rows < Game.Rows; rows++)
+            // Populate and/or inflate user interface (UI)            
+            for (int rows = 0; rows < Game.Rows; rows++)              
+                for (int columns = 0; columns < Game.Columns; columns++)
                 {
-                    //cycleGrid.RowDefinitions.Add(new RowDefinition());
-                    for (int columns = 0; columns < Game.Columns; columns++)
-                    {
-                        //cycleGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                        Image cell = new Image();
-                        cell.Source = AliveImg;                        
-                        // Set row/column for each label here
-                        cell.SetValue(Grid.RowProperty, rows);
-                        cell.SetValue(Grid.ColumnProperty, columns);
-                        // Add label to grid                            
-                        cycleGrid.Children.Add(cell);
-                    }
-                }
-            }
+                    Image cell = new Image();
+                    cell.Source = AliveImg;                        
+                    // Set row/column for each label here
+                    cell.SetValue(Grid.RowProperty, rows);
+                    cell.SetValue(Grid.ColumnProperty, columns);
+                    // Add label to grid                            
+                    cycleGrid.Children.Add(cell);
+                }          
 
             // Add our grid to the user interface as a sub (child) grid of the maingrid
             mainGrid.Children.Add(cycleGrid);
@@ -137,23 +136,6 @@ namespace GameOfLifeMobile
                             imgCell.Source = null;
                     });
                 }
-
-            //for (int row = 0; row < Game.Rows; row++)            
-            //    for (int column = 0; column < Game.Columns; column++)
-            //    {
-            //        // row * totalColumns + column -- to get correct column based on grid's index
-            //        Status dataCell = e.NextCycle[row, column];
-            //        Device.BeginInvokeOnMainThread(() =>
-            //        {                        
-            //            if (row == 5 && column == 5)
-            //                Console.WriteLine();
-            //            Image imgCell = (Image)cycleGrid.Children[row * Game.Columns + column];
-            //            if (dataCell == Status.Alive)
-            //                imgCell.Source = AliveImg;
-            //            else
-            //                imgCell.Source = null;
-            //        });
-            //    }
 
             Device.BeginInvokeOnMainThread(() =>
             {

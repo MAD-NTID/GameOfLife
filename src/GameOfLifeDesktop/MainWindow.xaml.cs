@@ -12,20 +12,39 @@ namespace GameOfLifeDesktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string[] IMAGE_FILES = new string[] {
+            "mark_reynolds",
+            "brian_trager",
+            "walter_bubie",
+            "james_mallory",
+            "edmund_lucas",
+            "joseph_stanislow",
+            "mark_jeremy",
+            "brian_nadworny",
+            "thomas_simpson",
+            "triandre_turner",
+            "tao_end"
+        };
+
         const string START_BTN_TEXT = "Start";
         const string STOP_BTN_TEXT = "Stop";
         const string RESUME_BTN_TEXT = "Resume";
 
         public GameOfLifeSession Game { get; private set; } = new GameOfLifeSession();
 
-        public BitmapImage AliveImg { get; private set; }
+        public BitmapImage[] InstructorImages { get; private set; }
+
+        public BitmapImage SelectedInstructorImage { get; private set; }
 
         private Grid cycleGrid;
 
         public MainWindow()
         {
             InitializeComponent();
-            AliveImg = new BitmapImage(new Uri("pack://application:,,,/Images/dog.jpg"));
+            InstructorImages = new BitmapImage[IMAGE_FILES.Length];
+            for (int i = 0; i < IMAGE_FILES.Length; i++)            
+                InstructorImages[i] = new BitmapImage(new Uri($"pack://application:,,,/Images/{IMAGE_FILES[i]}.jpg"));
+            listView.ItemsSource = InstructorImages;
         }
 
         private void OnStartBtn_Clicked(object sender, RoutedEventArgs e)
@@ -51,7 +70,7 @@ namespace GameOfLifeDesktop
                 for (int columns = 0; columns < Game.Columns; columns++)
                 {
                     Image cell = new Image();
-                    cell.Source = AliveImg;
+                    cell.Source = SelectedInstructorImage;
                     // Set row/column for each label here
                     cell.SetValue(Grid.RowProperty, rows);
                     cell.SetValue(Grid.ColumnProperty, columns);
@@ -124,7 +143,7 @@ namespace GameOfLifeDesktop
                     {
                         Image imgCell = (Image)cycleGrid.Children[row * Game.Columns + column];
                         if (dataCell == Status.Alive)
-                            imgCell.Source = AliveImg;
+                            imgCell.Source = SelectedInstructorImage;
                         else
                             imgCell.Source = null;
                     });
@@ -145,6 +164,12 @@ namespace GameOfLifeDesktop
         }
 
         private void ResetBtnClicked(object sender, RoutedEventArgs e)
-            => Game = new GameOfLifeSession();        
+            => Game = new GameOfLifeSession();
+
+        private void OnListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedInstructorImage = (BitmapImage)((ListView)sender).SelectedItem;
+            e.Handled = true;
+        }
     }
 }

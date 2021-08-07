@@ -31,7 +31,7 @@ namespace GameOfLifeMobile
 
         private Grid cycleGrid;
 
-        public ImageSource SelectedImage { get; set; }
+        public ImageSource SelectedInstructorImage { get; set; }
 
         public MainPage()
         {
@@ -106,7 +106,7 @@ namespace GameOfLifeMobile
                 for (int columns = 0; columns < Game.Columns; columns++)
                 {
                     Image cell = new Image();
-                    cell.Source = SelectedImage;                        
+                    cell.Source = SelectedInstructorImage;                        
                     // Set row/column for each label here
                     cell.SetValue(Grid.RowProperty, rows);
                     cell.SetValue(Grid.ColumnProperty, columns);
@@ -189,7 +189,7 @@ namespace GameOfLifeMobile
                     {
                         Image imgCell = (Image)cycleGrid.Children[cpyRow * Game.Columns + cpyCol];
                         if (dataCell == Status.Alive)
-                            imgCell.Source = SelectedImage;
+                            imgCell.Source = SelectedInstructorImage;
                         else
                             imgCell.Source = null;
                     });
@@ -211,7 +211,7 @@ namespace GameOfLifeMobile
 
         private void OnCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedImage = (ImageSource)e.CurrentSelection[0];
+            SelectedInstructorImage = (ImageSource)e.CurrentSelection[0];
         }       
     }
 }

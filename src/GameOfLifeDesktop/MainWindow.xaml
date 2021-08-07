@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameOfLifeDesktop"
         mc:Ignorable="d"
-        Title="Game Of Life" Height="450" Width="800">
+        Title="Game Of Life" Height="450" Width="950">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -21,79 +21,99 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid x:Name="mainGrid">
-            
+
         </Grid>
-        <StackPanel Grid.Column="1" Margin="20">
-            <Label Content="Game Settings" 
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="20">
+                <Label Content="Game Settings" 
                    HorizontalAlignment="Center"
                    FontSize="20"/>
-            <Grid Style="{StaticResource SettingsContainer}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="Number Of Rows"/>
-                <TextBox x:Name="numOfRowsTextBox" Grid.Column="1"/>
-            </Grid>
-            <Grid Style="{StaticResource SettingsContainer}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="Number Of Columns"/>
-                <TextBox x:Name="numOfColTextBox" Grid.Column="1"/>
-            </Grid>
-            <Grid Style="{StaticResource SettingsContainer}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="Cycle Time"/>
-                <TextBox x:Name="cycleTimeTextBox" Grid.Column="1"/>
-            </Grid>
-            <Grid Margin="0,20,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="toggleBtn"
+
+                <Label Content="Choose Your Faculty Member"/>
+                <Grid Style="{StaticResource SettingsContainer}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Number Of Rows"/>
+                    <TextBox x:Name="numOfRowsTextBox" Grid.Column="1"/>
+                </Grid>
+                <Grid Style="{StaticResource SettingsContainer}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Number Of Columns"/>
+                    <TextBox x:Name="numOfColTextBox" Grid.Column="1"/>
+                </Grid>
+                <Grid Style="{StaticResource SettingsContainer}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Cycle Time"/>
+                    <TextBox x:Name="cycleTimeTextBox" Grid.Column="1"/>
+                </Grid>
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="toggleBtn"
                         Content="Start"
                         Margin="5"
                         Click="OnStartBtn_Clicked"/>
-                <Button x:Name="resetBtn"
+                    <Button x:Name="resetBtn"
                         Content="Reset"
                         IsEnabled="False"
                         Margin="5"
                         Click="OnResetBtn_Clicked"
                         Grid.Column="1"/>
-            </Grid>
+                </Grid>
 
-            <Grid Margin="0,20,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="Cycle"
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Cycle"
                        Margin="0,5,5,0"
                        HorizontalAlignment="Right"/>
-                <Label x:Name="cycleLabel"
+                    <Label x:Name="cycleLabel"
                        Margin="5,5,0,0"
                        HorizontalAlignment="Left"
                        Grid.Column="1"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="Alive" 
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Alive" 
                        Margin="0,5,5,0"
                        HorizontalAlignment="Right"/>
-                <Label x:Name="aliveLabel" 
+                    <Label x:Name="aliveLabel" 
                        HorizontalAlignment="Left"
                        Margin="5,5,0,0"
                        Grid.Column="1"/>
-            </Grid>
-        </StackPanel>
+                </Grid>
+            </StackPanel>
+            <ListView x:Name="listView"
+                      Grid.Column="1"
+                      SelectionChanged="OnListView_SelectionChanged"
+                      FlowDirection="LeftToRight">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Image Source="{Binding}" Height="120" Width="120"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>

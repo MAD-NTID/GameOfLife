@@ -37,6 +37,9 @@ namespace GameOfLifeMobile
         private void OnStartBtn_Clicked(object sender, EventArgs e)
         {
             toggleBtn.Clicked -= OnStartBtn_Clicked; // Detach current toggle, start
+
+            ToggleInputEnabled(false);
+
             Game.Rows = int.Parse(numOfRowsTextBox.Text);
             Game.Columns = int.Parse(numOfColTextBox.Text);
             Game.CycleTime = 1000 * double.Parse(cycleTimeTextBox.Text);
@@ -114,6 +117,8 @@ namespace GameOfLifeMobile
             // Reset game status
             cycleLabel.Text = string.Empty;
             aliveLabel.Text = string.Empty;
+
+            ToggleInputEnabled(true);
         }
 
         private void Game_NextCycle(object sender, NextCycleEventArgs e)
@@ -142,6 +147,13 @@ namespace GameOfLifeMobile
                 cycleLabel.Text = Game.CycleCounter.ToString();
                 aliveLabel.Text = Game.AliveCounter.ToString();
             });
+        }
+
+        private void ToggleInputEnabled(bool value)
+        {
+            numOfRowsTextBox.IsEnabled = value;
+            numOfColTextBox.IsEnabled = value;
+            cycleTimeTextBox.IsEnabled = value;
         }
 
         private void ResetBtnClicked(object sender, ClickedEventArgs e)

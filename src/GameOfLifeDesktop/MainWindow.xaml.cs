@@ -32,6 +32,7 @@ namespace GameOfLifeDesktop
         private void OnStartBtn_Clicked(object sender, RoutedEventArgs e)
         {
             toggleBtn.Click -= OnStartBtn_Clicked; // Detach current toggle, start
+            ToggleInputEnabled(false);
             Game.Rows = int.Parse(numOfRowsTextBox.Text);
             Game.Columns = int.Parse(numOfColTextBox.Text);
             Game.CycleTime = 1000 * double.Parse(cycleTimeTextBox.Text);
@@ -109,6 +110,8 @@ namespace GameOfLifeDesktop
             // Reset game status
             cycleLabel.Content = string.Empty;
             aliveLabel.Content = string.Empty;
+
+            ToggleInputEnabled(true);
         }
 
         private void Game_NextCycle(object sender, NextCycleEventArgs e)
@@ -133,6 +136,13 @@ namespace GameOfLifeDesktop
                 cycleLabel.Content = Game.CycleCounter;
                 aliveLabel.Content = Game.AliveCounter;
             });            
+        }
+
+        private void ToggleInputEnabled(bool value)
+        {
+            numOfRowsTextBox.IsEnabled = value;
+            numOfColTextBox.IsEnabled = value;
+            cycleTimeTextBox.IsEnabled = value;
         }
 
         private void ResetBtnClicked(object sender, RoutedEventArgs e)

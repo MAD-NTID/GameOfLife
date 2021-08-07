@@ -1,36 +1,83 @@
 ﻿using GameOfLife;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace GameOfLifeMobile
 {
     public partial class MainPage : ContentPage
     {
+        private readonly string[] IMAGE_FILES = new string[] {
+            "mark_reynolds",
+            "brian_trager",
+            "walter_bubie",
+            "james_mallory",
+            "edmund_lucas",
+            "joseph_stanislow",
+            "mark_jeremy",
+            "brian_nadworny",
+            "thomas_simpson",
+            "triandre_turner",
+            "tao_end"
+        };
+
         const string START_BTN_TEXT = "Start";
         const string STOP_BTN_TEXT = "Stop";
         const string RESUME_BTN_TEXT = "Resume";
 
         public GameOfLifeSession Game { get; private set; } = new GameOfLifeSession();
 
-        public ImageSource AliveImg { get; private set; }
+        public ImageSource[] InstructorImages { get; private set; } 
 
         private Grid cycleGrid;
+
+        public ImageSource SelectedImage { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
-            AliveImg = ImageSource.FromFile(Device.RuntimePlatform == Device.Android ? "dog.jpg" : "Images/dog.jpg");
+            InstructorImages = new ImageSource[IMAGE_FILES.Length];
+            for (int i = 0; i < IMAGE_FILES.Length; i++)            
+                InstructorImages[i] = ImageSource.FromFile((Device.RuntimePlatform == Device.Android ? IMAGE_FILES[i] : $"Images/{IMAGE_FILES[i]}") + ".jpg");
+            collectionView.ItemsSource = InstructorImages;
+        }
+
+        protected override void OnAppearing()
+        {
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+            base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
+            base.OnDisappearing();
+        }
+
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            if (e.DisplayInfo.Orientation == DisplayOrientation.Portrait) // Portrait
+            {
+                mainLayout.Orientation = StackOrientation.Vertical;
+            }
+            else // Landscape
+            {
+                mainLayout.Orientation = StackOrientation.Horizontal;
+            }
         }
 
         protected override void OnSizeAllocated(double width, double height)
         {
-            mainGrid.WidthRequest = width;
-            mainGrid.HeightRequest = width;
+            if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+            {
+                mainGrid.WidthRequest = width;
+                mainGrid.HeightRequest = width;
+            }            
+            else
+            {
+                mainGrid.WidthRequest = height;
+                mainGrid.HeightRequest = height;
+            }
             base.OnSizeAllocated(width, height);
         }
 
@@ -59,7 +106,7 @@ namespace GameOfLifeMobile
                 for (int columns = 0; columns < Game.Columns; columns++)
                 {
                     Image cell = new Image();
-                    cell.Source = AliveImg;                        
+                    cell.Source = SelectedImage;                        
                     // Set row/column for each label here
                     cell.SetValue(Grid.RowProperty, rows);
                     cell.SetValue(Grid.ColumnProperty, columns);
@@ -99,6 +146,9 @@ namespace GameOfLifeMobile
 
         private void OnResetBtn_Clicked(object sender, EventArgs e)
         {
+            // Disable once clicked
+            resetBtn.IsEnabled = false;
+
             // Apply needed button changes for a reset
             toggleBtn.Clicked -= OnResumeBtn_Clicked;
             toggleBtn.Clicked += OnStartBtn_Clicked;
@@ -121,6 +171,9 @@ namespace GameOfLifeMobile
             ToggleInputEnabled(true);
         }
 
+        private void OnResetBtnClicked(object sender, ClickedEventArgs e)
+            => Game = new GameOfLifeSession();
+
         private void Game_NextCycle(object sender, NextCycleEventArgs e)
         {
             for (int row = 0; row < Game.Rows; row++)
@@ -136,7 +189,7 @@ namespace GameOfLifeMobile
                     {
                         Image imgCell = (Image)cycleGrid.Children[cpyRow * Game.Columns + cpyCol];
                         if (dataCell == Status.Alive)
-                            imgCell.Source = AliveImg;
+                            imgCell.Source = SelectedImage;
                         else
                             imgCell.Source = null;
                     });
@@ -147,16 +200,18 @@ namespace GameOfLifeMobile
                 cycleLabel.Text = Game.CycleCounter.ToString();
                 aliveLabel.Text = Game.AliveCounter.ToString();
             });
-        }
+        }        
 
         private void ToggleInputEnabled(bool value)
         {
             numOfRowsTextBox.IsEnabled = value;
             numOfColTextBox.IsEnabled = value;
             cycleTimeTextBox.IsEnabled = value;
-        }
+        }        
 
-        private void ResetBtnClicked(object sender, ClickedEventArgs e)
-            => Game = new GameOfLifeSession();
+        private void OnCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedImage = (ImageSource)e.CurrentSelection[0];
+        }       
     }
 }

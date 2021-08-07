@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLiveV2", "GameOfLiveV2\GameOfLiveV2.csproj", "{B8FFFEA3-51C3-431A-862B-014655AAEF12}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLifeDesktop", "src\GameOfLifeDesktop\GameOfLifeDesktop.csproj", "{F894B0C4-D262-4CE9-A2CA-A262CE7B4AAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife", "src\GameOfLife\GameOfLife.csproj", "{997D07BB-8A15-4870-9DBA-90970EE60A10}"

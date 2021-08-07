@@ -25,8 +25,7 @@ namespace GameOfLifeDesktop
         public MainWindow()
         {
             InitializeComponent();
-
-            AliveImg = new BitmapImage(new System.Uri("pack://application:,,,/Images/dog.jpg"));
+            AliveImg = new BitmapImage(new Uri("pack://application:,,,/Images/dog.jpg"));
         }
 
         private void OnStartBtn_Clicked(object sender, RoutedEventArgs e)

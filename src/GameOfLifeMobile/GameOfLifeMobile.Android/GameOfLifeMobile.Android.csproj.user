@@ -4,5 +4,6 @@
     <SelectedDevice>Samsung SM-N960U</SelectedDevice>
     <ActiveDebugProfile>Samsung SM-N960U</ActiveDebugProfile>
     <DefaultDevice>gametest</DefaultDevice>
+    <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
   </PropertyGroup>
 </Project>

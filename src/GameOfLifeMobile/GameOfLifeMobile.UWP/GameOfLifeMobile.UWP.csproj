@@ -104,7 +104,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\dog.jpg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
@@ -132,6 +131,17 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="Images\brian_nadworny.jpg" />
+    <Content Include="Images\brian_trager.jpg" />
+    <Content Include="Images\edmund_lucas.jpg" />
+    <Content Include="Images\james_mallory.jpg" />
+    <Content Include="Images\joseph_stanislow.jpg" />
+    <Content Include="Images\mark_jeremy.jpg" />
+    <Content Include="Images\mark_reynolds.jpg" />
+    <Content Include="Images\tao_end.jpg" />
+    <Content Include="Images\thomas_simpson.jpg" />
+    <Content Include="Images\triandre_turner.jpg" />
+    <Content Include="Images\walter_bubie.jpg" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

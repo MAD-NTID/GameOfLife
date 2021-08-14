@@ -23,7 +23,7 @@
     </ContentPage.Resources>
     <ScrollView>
         <StackLayout x:Name="mainLayout">
-            <Grid x:Name="mainGrid">
+            <Grid x:Name="mainGrid" BackgroundColor="{StaticResource ColorSecondary2}">
 
             </Grid>
             <Grid>

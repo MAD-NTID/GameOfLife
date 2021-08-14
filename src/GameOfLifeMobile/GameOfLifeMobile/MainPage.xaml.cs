@@ -75,7 +75,7 @@ namespace GameOfLifeMobile
             }            
             else
             {
-                mainGrid.WidthRequest = height;
+                mainGrid.WidthRequest = width / 2;
                 mainGrid.HeightRequest = height;
             }
             base.OnSizeAllocated(width, height);

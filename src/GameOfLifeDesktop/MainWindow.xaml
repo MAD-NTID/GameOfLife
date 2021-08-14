@@ -109,7 +109,10 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <Image Source="{Binding}" Height="120" Width="120"/>
+                            <Image Source="{Binding}" 
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Height="120" 
+                                   Width="120"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -56,18 +56,14 @@ namespace GameOfLifeMobile
 
         private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
-            if (e.DisplayInfo.Orientation == DisplayOrientation.Portrait) // Portrait
-            {
-                mainLayout.Orientation = StackOrientation.Vertical;
-            }
-            else // Landscape
-            {
-                mainLayout.Orientation = StackOrientation.Horizontal;
-            }
+            if (e.DisplayInfo.Orientation == DisplayOrientation.Portrait) // Portrait            
+                mainLayout.Orientation = StackOrientation.Vertical;            
+            else // Landscape            
+                mainLayout.Orientation = StackOrientation.Horizontal;            
         }
 
         protected override void OnSizeAllocated(double width, double height)
-        {
+        {           
             if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
             {
                 mainGrid.WidthRequest = width;

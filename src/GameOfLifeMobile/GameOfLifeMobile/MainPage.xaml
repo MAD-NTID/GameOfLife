@@ -29,8 +29,8 @@
             <Grid>
                 <StackLayout Margin="10">
                     <Label Text="Game Settings"
-                    HorizontalOptions="Center"
-                    FontSize="20"/>
+                           HorizontalOptions="Center"
+                           FontSize="20"/>
 
                     <Label Text="Choose Your Faculty Member"/>
                     <CollectionView x:Name="collectionView"                             

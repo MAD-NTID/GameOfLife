@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GameOfLife;
 
@@ -70,6 +71,7 @@ namespace GameOfLifeDesktop
                 for (int columns = 0; columns < Game.Columns; columns++)
                 {
                     Image cell = new Image();
+                    cell.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
                     cell.Source = SelectedInstructorImage;
                     // Set row/column for each label here
                     cell.SetValue(Grid.RowProperty, rows);

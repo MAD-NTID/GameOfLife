@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameOfLifeMobile.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SettingsContainer" TargetType="Grid">
+                <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
+            <Style x:Key="GameStatusLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="Margin" Value="0,5,5,0"/>
+            </Style>
+            <Style x:Key="GameStatusValue" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="Margin" Value="5,5,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout x:Name="mainLayout">
+            <Grid x:Name="mainGrid" BackgroundColor="{StaticResource ColorSecondary2}">
+
+            </Grid>
+            <Grid>
+                <StackLayout Margin="10">
+                    <Label Text="Game Settings"
+                    HorizontalOptions="Center"
+                    FontSize="20"/>
+
+                    <Label Text="Choose Your Faculty Member"/>
+                    <CollectionView x:Name="collectionView"                             
+                                SelectionChanged="OnCollectionView_SelectionChanged"                               
+                                SelectionMode="Single"
+                                HeightRequest="80">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="{Binding}" Margin="4"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Grid Style="{StaticResource SettingsContainer}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Number Of Rows"/>
+                        <Entry x:Name="numOfRowsTextBox" 
+                        Grid.Column="1"/>
+                    </Grid>
+                    <Grid Style="{StaticResource SettingsContainer}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Number Of Columns"/>
+                        <Entry x:Name="numOfColTextBox" 
+                        Grid.Column="1"/>
+                    </Grid>
+                    <Grid Style="{StaticResource SettingsContainer}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Cycle Time"/>
+                        <Entry x:Name="cycleTimeTextBox" 
+                        Grid.Column="1"/>
+                    </Grid>
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="toggleBtn"
+                        Text="Start"
+                        Margin="5"
+                        Clicked="OnStartBtn_Clicked"/>
+                        <Button x:Name="resetBtn"
+                        Text="Reset"
+                        IsEnabled="False"
+                        Margin="5"
+                        Clicked="OnResetBtn_Clicked"
+                        Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Cycle"
+                           Style="{StaticResource GameStatusLabel}"/>
+                        <Label x:Name="cycleLabel"
+                           Style="{StaticResource GameStatusValue}"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Alive" 
+                           Style="{StaticResource GameStatusLabel}"/>
+                        <Label x:Name="aliveLabel" 
+                           Style="{StaticResource GameStatusValue}"/>
+                    </Grid>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

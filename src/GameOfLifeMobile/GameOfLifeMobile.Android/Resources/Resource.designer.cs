@@ -11800,7 +11800,7 @@ namespace GameOfLifeMobile.Droid
 			public const int notify_panel_notification_icon_bg = 2131165331;
 			
 			// aapt resource value: 0x7F070094
-			public const int tao_end = 2131165332;
+			public const int tao_eng = 2131165332;
 			
 			// aapt resource value: 0x7F070095
 			public const int test_custom_background = 2131165333;

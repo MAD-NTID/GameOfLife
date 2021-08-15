@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameOfLife\GameOfLife.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\brian_nadworny.jpg" />
+    <Resource Include="Images\brian_trager.jpg" />
+    <Resource Include="Images\edmund_lucas.jpg" />
+    <Resource Include="Images\james_mallory.jpg" />
+    <Resource Include="Images\joseph_stanislow.jpg" />
+    <Resource Include="Images\mark_jeremy.jpg" />
+    <Resource Include="Images\mark_reynolds.jpg" />
+    <Resource Include="Images\tao_eng.jpg" />
+    <Resource Include="Images\thomas_simpson.jpg" />
+    <Resource Include="Images\triandre_turner.jpg" />
+    <Resource Include="Images\walter_bubie.jpg" />
+  </ItemGroup>
+
+</Project>

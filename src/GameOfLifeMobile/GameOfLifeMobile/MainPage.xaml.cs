@@ -18,7 +18,7 @@ namespace GameOfLifeMobile
             "brian_nadworny",
             "thomas_simpson",
             "triandre_turner",
-            "tao_end"
+            "tao_eng"
         };
 
         const string START_BTN_TEXT = "Start";
@@ -34,7 +34,7 @@ namespace GameOfLifeMobile
         public ImageSource SelectedInstructorImage { get; set; }
 
         public MainPage()
-        {
+        {            
             InitializeComponent();
             InstructorImages = new ImageSource[IMAGE_FILES.Length];
             for (int i = 0; i < IMAGE_FILES.Length; i++)            
@@ -170,13 +170,13 @@ namespace GameOfLifeMobile
         private void OnResetBtnClicked(object sender, ClickedEventArgs e)
             => Game = new GameOfLifeSession();
 
-        private void Game_NextCycle(object sender, NextCycleEventArgs e)
+        private void Game_NextCycle(GameOfLifeSession game, Status[,] nextCycle)
         {
             for (int row = 0; row < Game.Rows; row++)
                 for (int column = 0; column < Game.Columns; column++)
                 {
                     // row * totalColumns + column -- to get correct column based on grid's index
-                    Status dataCell = e.NextCycle[row, column];
+                    Status dataCell = nextCycle[row, column];
                     int cpyRow = new int();
                     int cpyCol = new int();
                     cpyRow = row;

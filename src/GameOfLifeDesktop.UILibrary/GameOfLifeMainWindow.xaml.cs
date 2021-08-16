@@ -36,12 +36,24 @@ namespace GameOfLifeDesktop.UILibrary
         protected const string STOP_BTN_TEXT = "Stop";
         protected const string RESUME_BTN_TEXT = "Resume";
 
-        protected GameOfLifeSession game = new GameOfLifeSession();
+        private GameOfLifeSession game = new GameOfLifeSession();
+        protected GameOfLifeSession Game
+        {
+            get => game;
+            set
+            {
+                if (game != null) // detach when new created to prevent memory leak / odd behavior
+                    game.NextCycle -= Game_NextCycle;
+                game = value;
+            }
+        }
 
         public BitmapImage[] InstructorImages { get; protected set; }
         public BitmapImage SelectedInstructorImage { get; protected set; }
 
         protected Grid cycleGrid;
+
+        private bool hasDetachedResetHandlers;
 
         public GameOfLifeMainWindow()
         {
@@ -54,6 +66,7 @@ namespace GameOfLifeDesktop.UILibrary
             OnSetupSimulation();
         }
 
+        #region Student Implementation Methods
         protected virtual void OnSetupSimulation() { }
         protected virtual void OnStartSimulation() { }
         protected virtual void OnResumeSimulation() { }
@@ -61,15 +74,18 @@ namespace GameOfLifeDesktop.UILibrary
         protected virtual void OnResetSimulation() { }
 
         protected virtual void OnNextCycle(GameOfLifeSession game, Status[,] nextCycle) { }
+        #endregion
 
         private void OnStartBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            toggleBtn.Click -= OnStartBtn_Clicked; // Detach current toggle, start
-
-            OnStartSimulation(); // <- Student code goes in overridden          
-
+            hasDetachedResetHandlers = false;
             // Be notified when the next cycle is generate by our GameOfLive session
-            game.NextCycle += Game_NextCycle;
+            Game.NextCycle += Game_NextCycle;
+            toggleBtn.Click -= OnStartBtn_Clicked; // Detach current toggle, start
+            resetBtn.IsEnabled = false;
+
+            OnStartSimulation(); // <- Student code goes in overridden
+
             toggleBtn.Click += OnStopBtn_Clicked; // Attack next toggle, stop
             toggleBtn.Content = STOP_BTN_TEXT;
         }
@@ -99,14 +115,16 @@ namespace GameOfLifeDesktop.UILibrary
 
         private void OnResetBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            // Apply needed button changes for a reset
-            toggleBtn.Click -= OnResumeBtn_Clicked;
-            toggleBtn.Click += OnStartBtn_Clicked;
-            toggleBtn.Content = START_BTN_TEXT;
+            if (!hasDetachedResetHandlers)
+            {
+                // Apply needed button changes for a reset
+                toggleBtn.Click -= OnResumeBtn_Clicked;
+                toggleBtn.Click += OnStartBtn_Clicked;
+                toggleBtn.Content = START_BTN_TEXT;
+                hasDetachedResetHandlers = true;
+            }            
 
             OnResetSimulation();
-
-            ToggleInputEnabled(true);
         }
 
         private void Game_NextCycle(GameOfLifeSession game, Status[,] nextCycle)

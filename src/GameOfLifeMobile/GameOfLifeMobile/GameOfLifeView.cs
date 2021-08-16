@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Collections.Generic;
+using System.Text;
 using GameOfLife;
-using GameOfLifeDesktop.UILibrary;
+using GameOfLifeMobile.UILibrary;
+using Xamarin.Forms;
 
-namespace GameOfLifeDesktop
+namespace GameOfLifeMobile
 {
-    public class MyMainWindow : GameOfLifeMainWindow
+    public class GameOfLifeView : GameOfLifeMainPage
     {
         protected override void OnSetupSimulation()
         {
-            InstructorImages = new BitmapImage[IMAGE_FILES.Length];
+            InstructorImages = new ImageSource[IMAGE_FILES.Length];
             for (int i = 0; i < IMAGE_FILES.Length; i++)
-                InstructorImages[i] = new BitmapImage(new Uri($"pack://application:,,,/GameOfLifeDesktop.UILibrary;component/Images/{IMAGE_FILES[i]}.jpg"));
-            listView.ItemsSource = InstructorImages;
+                InstructorImages[i] = ImageSource.FromFile(IMAGE_FILES[i] + ".jpg");
+            collectionView.ItemsSource = InstructorImages;
         }
 
         protected override void OnStartSimulation()
@@ -34,12 +34,12 @@ namespace GameOfLifeDesktop
             for (int rows = 0; rows < Game.Rows; rows++)
                 cycleGrid.RowDefinitions.Add(new RowDefinition());
 
-            // Populate and/or inflate user interface (UI)           
+            // Populate and/or inflate user interface (UI)            
             for (int rows = 0; rows < Game.Rows; rows++)
+            {
                 for (int columns = 0; columns < Game.Columns; columns++)
                 {
                     Image cell = new Image();
-                    cell.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
                     cell.Source = SelectedInstructorImage;
                     // Set row/column for each label here
                     cell.SetValue(Grid.RowProperty, rows);
@@ -47,9 +47,11 @@ namespace GameOfLifeDesktop
                     // Add label to grid                            
                     cycleGrid.Children.Add(cell);
                 }
+            }
 
             // Add our grid to the user interface as a sub (child) grid of the maingrid
             mainGrid.Children.Add(cycleGrid);
+            // Start the game
             Game.Start();
         }
 
@@ -59,7 +61,7 @@ namespace GameOfLifeDesktop
         }
 
         protected override void OnResumeSimulation()
-        {            
+        {
             Game.Resume();
         }
 
@@ -76,15 +78,19 @@ namespace GameOfLifeDesktop
 
         protected override void OnNextCycle(GameOfLifeSession game, Status[,] nextCycle)
         {
-            for (int row = 0; row < this.Game.Rows; row++)
+            for (int row = 0; row < Game.Rows; row++)
             {
-                for (int column = 0; column < this.Game.Columns; column++)
+                for (int column = 0; column < Game.Columns; column++)
                 {
                     // row * totalColumns + column -- to get correct column based on grid's index
                     Status dataCell = nextCycle[row, column];
-                    Dispatcher.Invoke(() =>
+                    int cpyRow = new int();
+                    int cpyCol = new int();
+                    cpyRow = row;
+                    cpyCol = column;
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        Image imgCell = (Image)cycleGrid.Children[row * this.Game.Columns + column];
+                        Image imgCell = (Image)cycleGrid.Children[cpyRow * Game.Columns + cpyCol];
                         if (dataCell == Status.Alive)
                             imgCell.Source = SelectedInstructorImage;
                         else
@@ -93,10 +99,10 @@ namespace GameOfLifeDesktop
                 }
             }
 
-            Dispatcher.Invoke(() =>
+            Device.BeginInvokeOnMainThread(() =>
             {
-                cycleLabel.Content = this.Game.CycleCounter;
-                aliveLabel.Content = this.Game.AliveCounter;
+                cycleLabel.Text = Game.CycleCounter.ToString();
+                aliveLabel.Text = Game.AliveCounter.ToString();
             });
         }
     }

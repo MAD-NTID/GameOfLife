@@ -18,8 +18,8 @@ namespace GameOfLifeConsole
             
             // Step 5 | Getting User Information
             Console.WriteLine("Set Simulation Options: "); // 5.1
-            Console.ForegroundColor = ConsoleColor.Cyan; // 5.1
 
+            Console.ForegroundColor = ConsoleColor.Cyan; // 5.2
             Console.Write("Enter the number of rows (1-30):     "); // 5.2
             Console.ForegroundColor = ConsoleColor.Magenta; // 5.2
             game.Rows = int.Parse(Console.ReadLine()); // 5.2
@@ -39,7 +39,7 @@ namespace GameOfLifeConsole
 
             // Step 7 | Starting / Stopping the Game
             Console.ForegroundColor = ConsoleColor.Yellow; // 7.1
-            Console.WriteLine("\n\nPRESS <CTRL-C> TO END THE SIMULATION\n"); // 7.1
+            Console.WriteLine("\n\nPRESS <CTRL + C> TO END THE SIMULATION\n"); // 7.1
             Console.Write("\nPRESS <ENTER> TO START"); // 7.1
             Console.CursorVisible = false; // 7.2
             Console.ReadLine(); // 7.2

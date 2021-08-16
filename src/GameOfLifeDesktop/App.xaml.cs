@@ -15,9 +15,8 @@ namespace GameOfLifeDesktop
     public partial class App : Application
     {
         public App()
-        {
-            MyMainWindow window = new MyMainWindow();
-            Current.MainWindow = window;
+        {             
+            Current.MainWindow = new MyMainWindow();
             Current.MainWindow.Show();
         }
     }

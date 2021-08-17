@@ -1,13 +1,10 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Controls;
 using GameOfLife;
 using GameOfLifeDesktop.UILibrary;
 
 namespace GameOfLifeDesktop
 {
-    public class MyMainWindow : GameOfLifeMainWindow
+    class MyMainWindow : GameOfLifeMainWindow
     {        
         protected override void OnStartSimulation()
         {

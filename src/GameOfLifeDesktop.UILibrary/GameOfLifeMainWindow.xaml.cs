@@ -153,14 +153,36 @@ namespace GameOfLifeDesktop.UILibrary
             });
         }
 
+        protected void SetCycleGridRowsAndColumns()
+        {
+            // Setup row definitions
+            for (int cols = 0; cols < Game.Columns; cols++)
+                cycleGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            // Setup column definitions
+            for (int rows = 0; rows < Game.Rows; rows++)
+                cycleGrid.RowDefinitions.Add(new RowDefinition());
+        }
+
+        protected Image GetCellByRowAndColumn(int row, int column)
+            => (Image)cycleGrid.Children[row * Game.Columns + column];
+
+        protected void UpdateCycleStatistics()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                cycleLabel.Content = Game.CycleCounter;
+                aliveLabel.Content = Game.AliveCounter;
+            });
+        }
+
         private void OnListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedInstructorImage = (BitmapImage)((ListView)sender).SelectedItem;
             e.Handled = true;
-        }
+        }        
     }
 
-    static class Extension
+    public static class Extension
     {
         /// <summary>
         /// I did not come up with this function, I don't have time to study the reflection taking place to load the .xaml files, hence: 
@@ -184,6 +206,13 @@ namespace GameOfLifeDesktop.UILibrary
             {
                 //log
             }
+        }
+
+        public static void SetCellRowAndColumn(this Image img, int row, int column)
+        {
+            img.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
+            img.SetValue(Grid.RowProperty, row);
+            img.SetValue(Grid.ColumnProperty, column);
         }
     }
 }

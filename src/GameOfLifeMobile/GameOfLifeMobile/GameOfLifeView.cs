@@ -9,14 +9,6 @@ namespace GameOfLifeMobile
 {
     public class GameOfLifeView : GameOfLifeMainPage
     {
-        protected override void OnSetupSimulation()
-        {
-            InstructorImages = new ImageSource[IMAGE_FILES.Length];
-            for (int i = 0; i < IMAGE_FILES.Length; i++)
-                InstructorImages[i] = ImageSource.FromFile(IMAGE_FILES[i] + ".jpg");
-            collectionView.ItemsSource = InstructorImages;
-        }
-
         protected override void OnStartSimulation()
         {
             ToggleInputEnabled(false);

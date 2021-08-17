@@ -58,16 +58,14 @@ namespace GameOfLifeDesktop.UILibrary
         public GameOfLifeMainWindow()
         {
             // Custom InitializeComponent
-            this.LoadViewFromUri("/GameOfLifeDesktop.UILibrary;component/GameOfLifeMainWindow.xaml");            
-            //InstructorImages = new BitmapImage[IMAGE_FILES.Length];
-            //for (int i = 0; i < IMAGE_FILES.Length; i++)
-            //    InstructorImages[i] = new BitmapImage(new Uri($"pack://application:,,,/GameOfLifeDesktop.UILibrary;component/Images/{IMAGE_FILES[i]}.jpg"));
-            //listView.ItemsSource = InstructorImages;
-            OnSetupSimulation();
+            this.LoadViewFromUri("/GameOfLifeDesktop.UILibrary;component/GameOfLifeMainWindow.xaml");
+            InstructorImages = new BitmapImage[IMAGE_FILES.Length];
+            for (int i = 0; i < IMAGE_FILES.Length; i++)
+                InstructorImages[i] = new BitmapImage(new Uri($"pack://application:,,,/GameOfLifeDesktop.UILibrary;component/Images/{IMAGE_FILES[i]}.jpg"));
+            listView.ItemsSource = InstructorImages;
         }
 
         #region Student Implementation Methods
-        protected virtual void OnSetupSimulation() { }
         protected virtual void OnStartSimulation() { }
         protected virtual void OnResumeSimulation() { }
         protected virtual void OnStopSimulation() { }

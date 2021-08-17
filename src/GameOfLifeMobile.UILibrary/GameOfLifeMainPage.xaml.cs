@@ -50,11 +50,13 @@ namespace GameOfLifeMobile.UILibrary
         public GameOfLifeMainPage()
         {
             InitializeComponent();
-            OnSetupSimulation();
+            InstructorImages = new ImageSource[IMAGE_FILES.Length];
+            for (int i = 0; i < IMAGE_FILES.Length; i++)
+                InstructorImages[i] = ImageSource.FromFile(IMAGE_FILES[i] + ".jpg");
+            collectionView.ItemsSource = InstructorImages;
         }
 
         #region Student Implementation Methods
-        protected virtual void OnSetupSimulation() { }
         protected virtual void OnStartSimulation() { }
         protected virtual void OnResumeSimulation() { }
         protected virtual void OnStopSimulation() { }

@@ -175,6 +175,9 @@ namespace GameOfLifeDesktop.UILibrary
             });
         }
 
+        protected void UpdateWindow(Action update)
+            => Dispatcher.Invoke(update);
+
         private void OnListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedInstructorImage = (BitmapImage)((ListView)sender).SelectedItem;

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GameOfLifeMobile.MainPage">
-
+             x:Class="GameOfLifeMobile.UILibrary.GameOfLifeMainPage">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="SettingsContainer" TargetType="Grid">
@@ -19,11 +19,40 @@
                 <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="Margin" Value="5,5,0,0"/>
             </Style>
+
+            <!-- Colors Pulled from RIT brandportal -> https://www.rit.edu/brandportal/colors -->
+
+            <!-- Primary Colors -->
+            <Color x:Key="ColorPrimary1">#F76902</Color>
+            <Color x:Key="ColorPrimary2">#FFFFFF</Color>
+            <!-- Seconday Colors -->
+            <Color x:Key="ColorSecondary1">#000000</Color>
+            <Color x:Key="ColorSecondary2">#D0D3D4</Color>
+            <Color x:Key="ColorSecondary3">#A2AAAD</Color>
+            <Color x:Key="ColorSecondary4">#7C878E</Color>
+            <!-- Accent Colors -->
+            <Color x:Key="ColorAccent1">#D7D2CB</Color>
+            <Color x:Key="ColorAccent2">#ACA39A</Color>
+            <Color x:Key="ColorAccent3">#84BD00</Color>
+            <Color x:Key="ColorAccent4">#C4D600</Color>
+            <Color x:Key="ColorAccent5">#009CBD</Color>
+            <Color x:Key="ColorAccent6">#7D55C7</Color>
+            <Color x:Key="ColorAccent7">#DA291C</Color>
+            <Color x:Key="ColorAccent8">#F6BE00</Color>
+
+            <!-- Default Button Color -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorAccent6}"/>
+                <Setter Property="TextColor" Value="{StaticResource ColorPrimary2}"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ScrollView>
         <StackLayout x:Name="mainLayout">
-            <Grid x:Name="mainGrid" BackgroundColor="{StaticResource ColorSecondary2}">
+            <Grid x:Name="mainGrid" 
+                  x:FieldModifier="protected"
+                  BackgroundColor="{StaticResource ColorSecondary2}">
 
             </Grid>
             <Grid>
@@ -33,10 +62,11 @@
                            FontSize="20"/>
 
                     <Label Text="Choose Your Faculty Member"/>
-                    <CollectionView x:Name="collectionView"                             
-                                SelectionChanged="OnCollectionView_SelectionChanged"                               
-                                SelectionMode="Single"
-                                HeightRequest="80">
+                    <CollectionView x:Name="collectionView"
+                                    x:FieldModifier="protected"
+                                    SelectionChanged="OnCollectionView_SelectionChanged"                               
+                                    SelectionMode="Single"
+                                    HeightRequest="80">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Horizontal"/>
                         </CollectionView.ItemsLayout>
@@ -56,7 +86,8 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="Number Of Rows"/>
                         <Entry x:Name="numOfRowsTextBox" 
-                        Grid.Column="1"/>
+                               x:FieldModifier="protected"
+                               Grid.Column="1"/>
                     </Grid>
                     <Grid Style="{StaticResource SettingsContainer}">
                         <Grid.ColumnDefinitions>
@@ -65,7 +96,8 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="Number Of Columns"/>
                         <Entry x:Name="numOfColTextBox" 
-                        Grid.Column="1"/>
+                               x:FieldModifier="protected"
+                               Grid.Column="1"/>
                     </Grid>
                     <Grid Style="{StaticResource SettingsContainer}">
                         <Grid.ColumnDefinitions>
@@ -74,7 +106,8 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="Cycle Time"/>
                         <Entry x:Name="cycleTimeTextBox" 
-                        Grid.Column="1"/>
+                               x:FieldModifier="protected"
+                               Grid.Column="1"/>
                     </Grid>
                     <Grid Margin="0,20,0,0">
                         <Grid.ColumnDefinitions>
@@ -82,15 +115,15 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button x:Name="toggleBtn"
-                        Text="Start"
-                        Margin="5"
-                        Clicked="OnStartBtn_Clicked"/>
+                                Text="Start"
+                                Margin="5"
+                                Clicked="OnStartBtn_Clicked"/>
                         <Button x:Name="resetBtn"
-                        Text="Reset"
-                        IsEnabled="False"
-                        Margin="5"
-                        Clicked="OnResetBtn_Clicked"
-                        Grid.Column="1"/>
+                                Text="Reset"
+                                IsEnabled="False"
+                                Margin="5"
+                                Clicked="OnResetBtn_Clicked"
+                                Grid.Column="1"/>
                     </Grid>
 
                     <Grid Margin="0,20,0,0">
@@ -99,9 +132,10 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Label Text="Cycle"
-                           Style="{StaticResource GameStatusLabel}"/>
+                               Style="{StaticResource GameStatusLabel}"/>
                         <Label x:Name="cycleLabel"
-                           Style="{StaticResource GameStatusValue}"/>
+                               x:FieldModifier="protected"
+                               Style="{StaticResource GameStatusValue}"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -109,9 +143,10 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Label Text="Alive" 
-                           Style="{StaticResource GameStatusLabel}"/>
+                               Style="{StaticResource GameStatusLabel}"/>
                         <Label x:Name="aliveLabel" 
-                           Style="{StaticResource GameStatusValue}"/>
+                               x:FieldModifier="protected"
+                               Style="{StaticResource GameStatusValue}"/>
                     </Grid>
                 </StackLayout>
             </Grid>

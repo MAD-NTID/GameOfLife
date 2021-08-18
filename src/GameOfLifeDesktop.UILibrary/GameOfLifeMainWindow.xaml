@@ -1,12 +1,11 @@
-﻿<Window x:Class="GameOfLifeDesktop.MainWindow"
+﻿<Window x:Class="GameOfLifeDesktop.UILibrary.GameOfLifeMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameOfLifeDesktop"
+        xmlns:local="clr-namespace:GameOfLifeDesktop.UILibrary"
         mc:Ignorable="d"
-        Title="Game Of Life" Height="450" Width="950">
-
+        Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="SettingsContainer" TargetType="Grid">
@@ -14,13 +13,13 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid x:Name="mainGrid">
+        <Grid x:Name="mainGrid" x:FieldModifier="protected">
 
         </Grid>
         <Grid Grid.Column="1">
@@ -40,7 +39,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Label Content="Number Of Rows"/>
-                    <TextBox x:Name="numOfRowsTextBox" Grid.Column="1"/>
+                    <TextBox x:Name="numOfRowsTextBox" x:FieldModifier="protected" Grid.Column="1"/>
                 </Grid>
                 <Grid Style="{StaticResource SettingsContainer}">
                     <Grid.ColumnDefinitions>
@@ -48,7 +47,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Label Content="Number Of Columns"/>
-                    <TextBox x:Name="numOfColTextBox" Grid.Column="1"/>
+                    <TextBox x:Name="numOfColTextBox" x:FieldModifier="protected" Grid.Column="1"/>
                 </Grid>
                 <Grid Style="{StaticResource SettingsContainer}">
                     <Grid.ColumnDefinitions>
@@ -56,7 +55,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Label Content="Cycle Time"/>
-                    <TextBox x:Name="cycleTimeTextBox" Grid.Column="1"/>
+                    <TextBox x:Name="cycleTimeTextBox" x:FieldModifier="protected" Grid.Column="1"/>
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -64,14 +63,14 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button x:Name="toggleBtn"
+                            Click="OnStartBtn_Clicked"
                         Content="Start"
-                        Margin="5"
-                        Click="OnStartBtn_Clicked"/>
+                        Margin="5"/>
                     <Button x:Name="resetBtn"
+                            Click="OnResetBtn_Clicked"
                         Content="Reset"
                         IsEnabled="False"
                         Margin="5"
-                        Click="OnResetBtn_Clicked"
                         Grid.Column="1"/>
                 </Grid>
 
@@ -84,6 +83,7 @@
                        Margin="0,5,5,0"
                        HorizontalAlignment="Right"/>
                     <Label x:Name="cycleLabel"
+                           x:FieldModifier="protected"
                        Margin="5,5,0,0"
                        HorizontalAlignment="Left"
                        Grid.Column="1"/>
@@ -96,13 +96,15 @@
                     <Label Content="Alive" 
                        Margin="0,5,5,0"
                        HorizontalAlignment="Right"/>
-                    <Label x:Name="aliveLabel" 
+                    <Label x:Name="aliveLabel"
+                           x:FieldModifier="protected"
                        HorizontalAlignment="Left"
                        Margin="5,5,0,0"
                        Grid.Column="1"/>
                 </Grid>
             </StackPanel>
             <ListView x:Name="listView"
+                      x:FieldModifier="protected"
                       Grid.Column="1"
                       SelectionChanged="OnListView_SelectionChanged"
                       FlowDirection="LeftToRight">

@@ -7,36 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\brian_nadworny.jpg" />
-    <None Remove="Images\brian_trager.jpg" />
-    <None Remove="Images\dog.jpg" />
-    <None Remove="Images\edmund_lucas.jpg" />
-    <None Remove="Images\james_mallory.jpg" />
-    <None Remove="Images\joseph_stanislow.jpg" />
-    <None Remove="Images\mark_jeremy.jpg" />
-    <None Remove="Images\mark_reynolds.jpg" />
-    <None Remove="Images\tao_end.jpg" />
-    <None Remove="Images\thomas_simpson.jpg" />
-    <None Remove="Images\triandre_turner.jpg" />
-    <None Remove="Images\walter_bubie.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\GameOfLife\GameOfLife.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\brian_nadworny.jpg" />
-    <Resource Include="Images\brian_trager.jpg" />
-    <Resource Include="Images\edmund_lucas.jpg" />
-    <Resource Include="Images\james_mallory.jpg" />
-    <Resource Include="Images\joseph_stanislow.jpg" />
-    <Resource Include="Images\mark_jeremy.jpg" />
-    <Resource Include="Images\mark_reynolds.jpg" />
-    <Resource Include="Images\tao_end.jpg" />
-    <Resource Include="Images\thomas_simpson.jpg" />
-    <Resource Include="Images\triandre_turner.jpg" />
-    <Resource Include="Images\walter_bubie.jpg" />
+    <ProjectReference Include="..\GameOfLifeDesktop.UILibrary\GameOfLifeDesktop.UILibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -116,7 +116,7 @@
     <AndroidResource Include="Resources\drawable\mark_reynolds.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\tao_end.jpg" />
+    <AndroidResource Include="Resources\drawable\tao_eng.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\thomas_simpson.jpg" />

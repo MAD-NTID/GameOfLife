@@ -12,10 +12,9 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\GameOfLife\GameOfLife.csproj" />
+    <ProjectReference Include="..\..\GameOfLifeMobile.UILibrary\GameOfLifeMobile.UILibrary.csproj" />
   </ItemGroup>
 </Project>

@@ -16,7 +16,7 @@ namespace GameOfLife
         /// <summary>
         /// Notifies subscribers that the next cycle is ready.
         /// </summary>
-        public event EventHandler<NextCycleEventArgs> NextCycle;
+        public event Action<GameOfLifeSession, Status[,]> NextCycle;
 
         #region Properties
         /// <summary>
@@ -86,7 +86,7 @@ namespace GameOfLife
                 }                       
 
             IsRunning = true;
-            NextCycle?.Invoke(this, new NextCycleEventArgs(currentCycle));            
+            NextCycle?.Invoke(this, currentCycle);            
         }        
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace GameOfLife
                         AliveCounter++;
                 }
             currentCycle = nextCycle;
-            NextCycle?.Invoke(this, new NextCycleEventArgs(nextCycle));
+            NextCycle?.Invoke(this, nextCycle);
         }
     }
 
@@ -166,16 +166,5 @@ namespace GameOfLife
     {
         Dead,
         Alive
-    }
-
-    /// <summary>
-    /// Contains information about the next cycle.
-    /// </summary>
-    public class NextCycleEventArgs : EventArgs
-    {
-        public Status[,] NextCycle { get; set; }
-
-        public NextCycleEventArgs(Status[,] grid)
-            => NextCycle = grid;
-    }
+    }    
 }

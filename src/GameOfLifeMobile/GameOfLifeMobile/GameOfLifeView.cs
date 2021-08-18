@@ -19,23 +19,16 @@ namespace GameOfLifeMobile
             // Create a new grid that will contain our game
             cycleGrid = new Grid();
 
-            // Setup row definitions
-            for (int cols = 0; cols < Game.Columns; cols++)
-                cycleGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            // Setup column definitions
-            for (int rows = 0; rows < Game.Rows; rows++)
-                cycleGrid.RowDefinitions.Add(new RowDefinition());
+            SetCycleGridRowsAndColumns();
 
             // Populate and/or inflate user interface (UI)            
-            for (int rows = 0; rows < Game.Rows; rows++)
+            for (int row = 0; row < Game.Rows; row++)
             {
-                for (int columns = 0; columns < Game.Columns; columns++)
+                for (int column = 0; column < Game.Columns; column++)
                 {
                     Image cell = new Image();
                     cell.Source = SelectedInstructorImage;
-                    // Set row/column for each label here
-                    cell.SetValue(Grid.RowProperty, rows);
-                    cell.SetValue(Grid.ColumnProperty, columns);
+                    cell.SetCellRowAndColumn(row, column);
                     // Add label to grid                            
                     cycleGrid.Children.Add(cell);
                 }
@@ -68,7 +61,7 @@ namespace GameOfLifeMobile
             ToggleInputEnabled(true);
         }
 
-        protected override void OnNextCycle(GameOfLifeSession game, Status[,] nextCycle)
+        protected override void OnNextCycle(Status[,] nextCycle)
         {
             for (int row = 0; row < Game.Rows; row++)
             {
@@ -80,7 +73,7 @@ namespace GameOfLifeMobile
                     int cpyCol = new int();
                     cpyRow = row;
                     cpyCol = column;
-                    Device.BeginInvokeOnMainThread(() =>
+                    UpdateWindow(() =>
                     {
                         Image imgCell = (Image)cycleGrid.Children[cpyRow * Game.Columns + cpyCol];
                         if (dataCell == Status.Alive)
@@ -91,11 +84,7 @@ namespace GameOfLifeMobile
                 }
             }
 
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                cycleLabel.Text = Game.CycleCounter.ToString();
-                aliveLabel.Text = Game.AliveCounter.ToString();
-            });
+            UpdateCycleStatistics();
         }
     }
 }

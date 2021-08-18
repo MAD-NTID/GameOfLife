@@ -62,7 +62,7 @@ namespace GameOfLifeMobile.UILibrary
         protected virtual void OnStopSimulation() { }
         protected virtual void OnResetSimulation() { }
 
-        protected virtual void OnNextCycle(GameOfLifeSession game, Status[,] nextCycle) { }
+        protected virtual void OnNextCycle(Status[,] nextCycle) { }
         #endregion
 
         protected override void OnAppearing()
@@ -105,11 +105,11 @@ namespace GameOfLifeMobile.UILibrary
             hasDetachedResetHandlers = false;
             resetBtn.IsEnabled = false;
             toggleBtn.Clicked -= OnStartBtn_Clicked; // Detach current toggle, start
-            
-            OnStartSimulation();            
+
+            OnStartSimulation();
 
             // Be notified when the next cycle is generate by our GameOfLive session
-            game.NextCycle += Game_NextCycle;            
+            game.NextCycle += Game_NextCycle;
             toggleBtn.Clicked += OnStopBtn_Clicked; // Attack next toggle, stop
             toggleBtn.Text = STOP_BTN_TEXT;
         }
@@ -137,7 +137,7 @@ namespace GameOfLifeMobile.UILibrary
         private void OnResetBtn_Clicked(object sender, EventArgs e)
         {
             if (!hasDetachedResetHandlers)
-            {               
+            {
                 // Apply needed button changes for a reset
                 toggleBtn.Clicked -= OnResumeBtn_Clicked;
                 toggleBtn.Clicked += OnStartBtn_Clicked;
@@ -145,14 +145,14 @@ namespace GameOfLifeMobile.UILibrary
                 hasDetachedResetHandlers = true;
             }
 
-            OnResetSimulation();           
+            OnResetSimulation();
         }
 
         private void OnResetBtnClicked(object sender, ClickedEventArgs e)
             => game = new GameOfLifeSession();
 
         private void Game_NextCycle(GameOfLifeSession game, Status[,] nextCycle)
-            => OnNextCycle(game, nextCycle);                    
+            => OnNextCycle(nextCycle);
 
         protected void ClearUserInput()
         {
@@ -176,12 +176,46 @@ namespace GameOfLifeMobile.UILibrary
                 numOfRowsTextBox.IsEnabled = value;
                 numOfColTextBox.IsEnabled = value;
                 cycleTimeTextBox.IsEnabled = value;
-            });            
+            });
         }
+
+        protected void SetCycleGridRowsAndColumns()
+        {
+            // Setup row definitions
+            for (int cols = 0; cols < Game.Columns; cols++)
+                cycleGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            // Setup column definitions
+            for (int rows = 0; rows < Game.Rows; rows++)
+                cycleGrid.RowDefinitions.Add(new RowDefinition());
+        }
+
+        protected Image GetCellByRowAndColumn(int row, int column)
+            => (Image)cycleGrid.Children[row * Game.Columns + column];
+
+        protected void UpdateCycleStatistics()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                cycleLabel.Text = Game.CycleCounter.ToString();
+                aliveLabel.Text = Game.AliveCounter.ToString();
+            });
+        }
+
+        protected void UpdateWindow(Action update)
+            => Device.BeginInvokeOnMainThread(update);
 
         private void OnCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedInstructorImage = (ImageSource)e.CurrentSelection[0];
+        }
+    }
+
+    public static class Extensions
+    {
+        public static void SetCellRowAndColumn(this Image img, int row, int column)
+        {
+            img.SetValue(Grid.RowProperty, row);
+            img.SetValue(Grid.ColumnProperty, column);
         }
     }
 }

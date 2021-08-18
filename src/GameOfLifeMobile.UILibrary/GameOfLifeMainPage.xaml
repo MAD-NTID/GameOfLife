@@ -19,6 +19,32 @@
                 <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="Margin" Value="5,5,0,0"/>
             </Style>
+
+            <!-- Colors Pulled from RIT brandportal -> https://www.rit.edu/brandportal/colors -->
+
+            <!-- Primary Colors -->
+            <Color x:Key="ColorPrimary1">#F76902</Color>
+            <Color x:Key="ColorPrimary2">#FFFFFF</Color>
+            <!-- Seconday Colors -->
+            <Color x:Key="ColorSecondary1">#000000</Color>
+            <Color x:Key="ColorSecondary2">#D0D3D4</Color>
+            <Color x:Key="ColorSecondary3">#A2AAAD</Color>
+            <Color x:Key="ColorSecondary4">#7C878E</Color>
+            <!-- Accent Colors -->
+            <Color x:Key="ColorAccent1">#D7D2CB</Color>
+            <Color x:Key="ColorAccent2">#ACA39A</Color>
+            <Color x:Key="ColorAccent3">#84BD00</Color>
+            <Color x:Key="ColorAccent4">#C4D600</Color>
+            <Color x:Key="ColorAccent5">#009CBD</Color>
+            <Color x:Key="ColorAccent6">#7D55C7</Color>
+            <Color x:Key="ColorAccent7">#DA291C</Color>
+            <Color x:Key="ColorAccent8">#F6BE00</Color>
+
+            <!-- Default Button Color -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorAccent6}"/>
+                <Setter Property="TextColor" Value="{StaticResource ColorPrimary2}"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     

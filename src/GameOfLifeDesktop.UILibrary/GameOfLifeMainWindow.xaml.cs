@@ -71,7 +71,7 @@ namespace GameOfLifeDesktop.UILibrary
         protected virtual void OnStopSimulation() { }
         protected virtual void OnResetSimulation() { }
 
-        protected virtual void OnNextCycle(GameOfLifeSession game, Status[,] nextCycle) { }
+        protected virtual void OnNextCycle(Status[,] nextCycle) { }
         #endregion
 
         private void OnStartBtn_Clicked(object sender, RoutedEventArgs e)
@@ -126,7 +126,7 @@ namespace GameOfLifeDesktop.UILibrary
         }
 
         private void Game_NextCycle(GameOfLifeSession game, Status[,] nextCycle)
-            => OnNextCycle(game, nextCycle);
+            => OnNextCycle(nextCycle);
 
         protected void ToggleInputEnabled(bool value)
         {

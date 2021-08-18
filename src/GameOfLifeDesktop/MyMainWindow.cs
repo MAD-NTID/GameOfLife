@@ -55,7 +55,7 @@ namespace GameOfLifeDesktop
             ToggleInputEnabled(true);
         }
 
-        protected override void OnNextCycle(GameOfLifeSession game, Status[,] nextCycle)
+        protected override void OnNextCycle(Status[,] nextCycle)
         {
             for (int row = 0; row < Game.Rows; row++)
             {

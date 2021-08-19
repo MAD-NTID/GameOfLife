@@ -7,10 +7,10 @@ namespace GameOfLifeDesktop
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {             
-            Current.MainWindow = new MyMainWindow();
-            Current.MainWindow.Show();
-        }
+        public App() // 2.4
+        { // 2.4
+            Current.MainWindow = new MyMainWindow(); // 2.4
+            Current.MainWindow.Show(); // 2.4
+        } // 2.4
     }
 }

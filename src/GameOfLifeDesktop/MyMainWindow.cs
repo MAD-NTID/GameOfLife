@@ -1,11 +1,14 @@
-﻿using System.Windows.Controls;
-using GameOfLife;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Controls; // 3.3
+using GameOfLife; // 4.1
 using GameOfLifeDesktop.UILibrary; // 2.3
 
 namespace GameOfLifeDesktop
 {
     class MyMainWindow : GameOfLifeMainWindow // 2.3
-    {        
+    {
         protected override void OnStartSimulation() // 3.1
         { // 3.1
             ToggleInputEnabled(false); // 3.2
@@ -13,11 +16,9 @@ namespace GameOfLifeDesktop
             Game.Columns = int.Parse(numOfColTextBox.Text); // 3.2
             Game.CycleTime = 1000 * double.Parse(cycleTimeTextBox.Text); // 3.2
 
-            // Create a new grid that will contain our game
             cycleGrid = new Grid(); // 3.3 
             SetCycleGridRowsAndColumns(); // 3.3
 
-            // Populate and/or inflate user interface (UI)           
             for (int row = 0; row < Game.Rows; row++) // 3.4
             { // 3.4
                 for (int column = 0; column < Game.Columns; column++) // 3.5
@@ -29,52 +30,48 @@ namespace GameOfLifeDesktop
                 } // 3.5
             } // 3.4
 
-            // Add our grid to the user interface as a sub (child) grid of the maingrid
             mainGrid.Children.Add(cycleGrid); // 3.7
             Game.Start(); // 3.7
-        } // 3.1
+        } // 3.1        
 
-        protected override void OnStopSimulation()
-        {
-            Game.Stop();
-        }
+        protected override void OnNextCycle(Status[,] nextCycle) // 4.1
+        { // 4.1
+            for (int row = 0; row < Game.Rows; row++) // 4.2
+            { // 4.2
+                for (int column = 0; column < Game.Columns; column++) // 4.3
+                { // 4.3
+                    Status dataCell = nextCycle[row, column]; // 4.4
+                    UpdateWindow(() => // 4.5
+                    { // 4.5
+                        Image imgCell = GetCellByRowAndColumn(row, column); // 4.6
+                        if (dataCell == Status.Alive) // 4.6
+                            imgCell.Source = SelectedInstructorImage; // 4.6
+                        else // 4.6
+                            imgCell.Source = null;  // 4.6
+                    }); // 4.5
+                } // 4.3
+            } // 4.2
 
-        protected override void OnResumeSimulation()
-        {            
-            Game.Resume();
-        }
+            UpdateCycleStatistics(); // 4.7
+        } // 4.1
 
-        protected override void OnResetSimulation()
-        {
-            // Create a new game
-            Game = new GameOfLifeSession();
-            // Remove our cycleGrid form the maingrid
-            mainGrid.Children.Remove(cycleGrid);
+        protected override void OnStopSimulation() // 5.1
+        { // 5.1
+            Game.Stop(); // 5.2
+        } // 5.1
 
-            ClearUserInput();
-            ToggleInputEnabled(true);
-        }
+        protected override void OnResumeSimulation() // 6.1
+        { // 6.1
+            Game.Resume(); // 6.2
+        } // 6.1
 
-        protected override void OnNextCycle(Status[,] nextCycle)
-        {
-            for (int row = 0; row < Game.Rows; row++)
-            {
-                for (int column = 0; column < Game.Columns; column++)
-                {
-                    // row * totalColumns + column -- to get correct column based on grid's index
-                    Status dataCell = nextCycle[row, column];
-                    UpdateWindow(() =>
-                    {
-                        Image imgCell = GetCellByRowAndColumn(row, column);
-                        if (dataCell == Status.Alive)
-                            imgCell.Source = SelectedInstructorImage;
-                        else
-                            imgCell.Source = null;
-                    });
-                }
-            }
+        protected override void OnResetSimulation() // 7.1
+        { // 7.1
+            Game = new GameOfLifeSession(); // 7.2
+            mainGrid.Children.Remove(cycleGrid); // 7.2
 
-            UpdateCycleStatistics();
-        }
+            ClearUserInput(); // 7.3
+            ToggleInputEnabled(true); // 7.3
+        } // 7.1
     }
 }

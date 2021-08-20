@@ -1,8 +1,13 @@
-# GameOfLife2
-Console version of Game of Life
+# The Game Of Life
+A simulation of the game of life where cells die and are reborn based off their surrounding cells.
 
-* The Game Of Life -- Console Version
+## Supported Mediums
+- Console *(.NET Core)*
+- Desktop *(WPF .NET Core)*
+- Mobile *(Android)*
 
-Just a fun little console program to show how "cells" live or die over time.  The user can control the number of rows and columns in the simulation, as well as the update speed.  
+## Dependency Stack
+![image](https://user-images.githubusercontent.com/46757278/130158770-c2c6fbd9-b6a7-4a36-be5f-0526a392e55c.png)
 
-After each cycle, the cycle number and number of living cells is displayed.
+## Purpose
+This repo was built for the RIT -> NTID -> ICS -> SVP group of 2021. It aims to provide a *taste* of programming a console, desktop, and mobile app within a 3 hour time frame. It is worth mentoning that some programming practices might look rather odd, but know these are in place to simplify the landscape therefore being more intuitive to a new student. 
